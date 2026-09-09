@@ -66,14 +66,15 @@ const pl=document.getElementById('pl'),now=document.getElementById('now'),eps=do
 EPS.forEach((e,i)=>{
   const li=document.createElement('li'),b=document.createElement('button');
   b.innerHTML='<span class="num">'+e.n+'</span><span>'+e.t+'</span>';
-  b.onclick=()=>play(i); li.appendChild(b); eps.appendChild(li);
+  b.onclick=()=>play(i,true); li.appendChild(b); eps.appendChild(li);
 });
-function play(i){
-  const e=EPS[i];
-  pl.src = e.vm ? 'https://player.vimeo.com/video/'+e.vm
-                : 'https://www.youtube.com/embed/'+e.yt+'?rel=0&playsinline=1';
+function play(i,click){
+  const e=EPS[i], ap = click ? '&autoplay=1' : '';
+  pl.src = e.vm ? 'https://player.vimeo.com/video/'+e.vm+(click?'?autoplay=1':'')
+                : 'https://www.youtube.com/embed/'+e.yt+'?rel=0&playsinline=1'+ap;
   now.textContent='กำลังเล่น: '+e.n+' — '+e.t;
   [...eps.querySelectorAll('button')].forEach((b,j)=>b.setAttribute('aria-current',j===i));
+  if(click) document.querySelector('.player').scrollIntoView({behavior:'smooth',block:'start'});
 }
 play(0);
 </script>
