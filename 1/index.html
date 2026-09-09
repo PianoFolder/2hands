@@ -34,7 +34,7 @@ ol li button[aria-current="true"]{color:var(--sage);font-weight:600}
   <p class="lv">เพลงที่ 1 · Lv. 1.5</p>
   <h1>Für Elise</h1>
 
-  <div class="player"><iframe id="pl" src="" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe></div>
+  <div class="player"><iframe id="pl" src="https://player.vimeo.com/video/1225332451?badge=0&autopause=0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe></div>
   <p class="now" id="now"></p>
 
   <h2>โน้ตเพลง</h2>
@@ -49,8 +49,9 @@ ol li button[aria-current="true"]{color:var(--sage);font-weight:600}
   <a class="hw" href="https://lin.ee/Nd6pxlW">ส่งการบ้านให้ครูตรวจทาง LINE</a>
 </div>
 
+<script src="https://player.vimeo.com/api/player.js"></script>
 <script>
-// แก้ตรงนี้ที่เดียว  vm = Vimeo ID , yt = YouTube ID
+// แก้ตรงนี้ที่เดียว  vm = Vimeo ID
 const EPS = [
   {n:"ตัวอย่าง", t:"ฟังเพลงเต็ม Für Elise",  vm:"1225332451"},
   {n:"ที่มา",    t:"เรื่องเล่าเบื้องหลังเพลงนี้", vm:"1225331447"},
@@ -62,22 +63,29 @@ const EPS = [
   {n:"EP6",     t:"ท่อน B สองมือ",           vm:"1225332086"},
   {n:"EP7",     t:"ท่อน C และจบเพลง",        vm:"1225332174"}
 ];
-const VP='?badge=0&autopause=0&player_id=0&app_id=58479';
-const pl=document.getElementById('pl'),now=document.getElementById('now'),eps=document.getElementById('eps');
+const now=document.getElementById('now'),eps=document.getElementById('eps');
+const player=new Vimeo.Player(document.getElementById('pl'));
 EPS.forEach((e,i)=>{
   const li=document.createElement('li'),b=document.createElement('button');
   b.innerHTML='<span class="num">'+e.n+'</span><span>'+e.t+'</span>';
-  b.onclick=()=>play(i,true); li.appendChild(b); eps.appendChild(li);
+  b.onclick=()=>pick(i); li.appendChild(b); eps.appendChild(li);
 });
-function play(i,click){
-  const e=EPS[i];
-  pl.src = e.vm ? 'https://player.vimeo.com/video/'+e.vm+VP+(click?'&autoplay=1':'')
-                : 'https://www.youtube.com/embed/'+e.yt+'?rel=0&playsinline=1'+(click?'&autoplay=1':'');
-  now.textContent='กำลังเล่น: '+e.n+' — '+e.t;
+function label(i){
+  now.textContent='กำลังเล่น: '+EPS[i].n+' — '+EPS[i].t;
   [...eps.querySelectorAll('button')].forEach((b,j)=>b.setAttribute('aria-current',j===i));
-  if(click) document.querySelector('.player').scrollIntoView({behavior:'smooth',block:'start'});
 }
-play(0);
+function pick(i){
+  label(i);
+  document.querySelector('.player').scrollIntoView({behavior:'smooth',block:'start'});
+  player.loadVideo(EPS[i].vm).then(function(){
+    player.setMuted(false);
+    return player.play();
+  }).catch(function(){
+    player.setMuted(true);
+    player.play().catch(function(){});
+  });
+}
+label(0);
 </script>
 </body>
 </html>
