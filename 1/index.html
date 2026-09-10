@@ -10,16 +10,27 @@
 :root{--cream:#FBF8F1;--sage:#6F8F78;--deep:#3F5A48;--ink:#2B342D;--gold:#C2A15A;--line:#DFE4DA}
 *{box-sizing:border-box;margin:0;padding:0}
 body{background:var(--cream);color:var(--ink);font-family:'IBM Plex Sans Thai',system-ui,sans-serif;font-weight:300;line-height:1.7}
+body.locked{overflow:hidden}
 .wrap{max-width:44rem;margin:0 auto;padding:2.5rem 1.25rem 4rem}
 .lv{font-size:.9rem;color:var(--sage);font-weight:600}
 h1{font-size:clamp(1.7rem,6vw,2.3rem);font-weight:600;color:var(--deep);margin:.3rem 0 1.5rem}
+
 .player{position:relative;padding-top:56.25%;background:#000;border-radius:6px;overflow:hidden;scroll-margin-top:1rem}
 .player iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
-.cue{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none;transition:opacity .25s ease}
+.player.big{position:fixed;inset:0;z-index:120;padding-top:0;border-radius:0}
+.player.big iframe{top:50%;height:auto;aspect-ratio:16/9;max-height:100%;transform:translateY(-50%)}
+
+.cue{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none;transition:opacity .2s ease}
 .cue.gone{opacity:0}
-.cue span{width:88px;height:88px;border-radius:50%;background:rgba(255,255,255,.94);box-shadow:0 4px 20px rgba(0,0,0,.45);display:flex;align-items:center;justify-content:center}
-.cue span::after{content:"";margin-left:7px;border-left:28px solid var(--deep);border-top:18px solid transparent;border-bottom:18px solid transparent}
-.now{margin:.8rem 0 .4rem;font-size:1rem;color:var(--deep);font-weight:600}
+.cue svg{width:84px;height:84px;filter:drop-shadow(0 3px 14px rgba(0,0,0,.5))}
+
+.expand{display:flex;justify-content:flex-end;margin-top:.6rem}
+.expand button{display:flex;align-items:center;gap:.5rem;padding:.6rem 1rem;background:none;border:1px solid var(--line);border-radius:5px;color:#5B665D;font:inherit;font-size:.9rem;cursor:pointer}
+.expand button:hover{border-color:var(--sage);color:var(--sage)}
+.close{display:none;position:fixed;top:.9rem;right:.9rem;z-index:130;width:46px;height:46px;border-radius:50%;border:0;background:rgba(20,20,20,.6);color:#fff;font-size:1.5rem;line-height:1;cursor:pointer}
+body.locked .close{display:block}
+
+.now{margin:1.2rem 0 .4rem;font-size:1rem;color:var(--deep);font-weight:600}
 .hint{margin-bottom:2rem;font-size:.9rem;color:#7A857C}
 h2{font-size:1.1rem;font-weight:600;color:var(--deep);margin:2.2rem 0 .8rem}
 .sheets{display:flex;flex-wrap:wrap;gap:.7rem}
@@ -35,14 +46,24 @@ ol li button[aria-current="true"]{color:var(--sage);font-weight:600}
 </style>
 </head>
 <body>
+<button class="close" id="close" aria-label="ปิดเต็มจอ">&times;</button>
+
 <div class="wrap">
   <p class="lv">เพลงที่ 1 · Lv. 1.5</p>
   <h1>Für Elise</h1>
 
-  <div class="player">
+  <div class="player" id="box">
     <iframe id="pl" src="" allow="fullscreen; picture-in-picture" allowfullscreen></iframe>
-    <div class="cue" id="cue"><span></span></div>
+    <div class="cue" id="cue">
+      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <path fill="#EFEBE2" fill-opacity=".9" fill-rule="evenodd"
+          d="M50 0A50 50 0 1 0 50 100A50 50 0 1 0 50 0Z M39 29L73 50L39 71Z"/>
+      </svg>
+    </div>
   </div>
+
+  <div class="expand"><button id="big">ขยายเต็มจอ</button></div>
+
   <p class="now" id="now"></p>
   <p class="hint">กดปุ่มเล่นตรงกลางจอเพื่อเริ่มเรียน</p>
 
@@ -74,27 +95,39 @@ const EPS = [
 ];
 const VP='?badge=0&autopause=0&title=0&byline=0&portrait=0';
 const pl=document.getElementById('pl'),now=document.getElementById('now'),
-      eps=document.getElementById('eps'),cue=document.getElementById('cue');
+      eps=document.getElementById('eps'),cue=document.getElementById('cue'),
+      box=document.getElementById('box');
+
+function hide(){cue.classList.add('gone');}
+
+// ดัก 3 ทาง กันปุ่มค้าง
+window.addEventListener('blur',hide);
+box.addEventListener('pointerdown',hide);
+pl.addEventListener('load',function(){
+  setTimeout(function(){
+    try{ new Vimeo.Player(pl).on('play',hide); }catch(err){}
+  },300);
+});
+
 EPS.forEach((e,i)=>{
   const li=document.createElement('li'),b=document.createElement('button');
   b.innerHTML='<span class="num">'+e.n+'</span><span>'+e.t+'</span>';
   b.onclick=()=>pick(i,true); li.appendChild(b); eps.appendChild(li);
 });
-function watch(){
-  try{
-    const p=new Vimeo.Player(pl);
-    p.on('play',()=>cue.classList.add('gone'));
-    p.on('ended',()=>cue.classList.remove('gone'));
-  }catch(err){}
-}
 function pick(i,click){
   pl.src='https://player.vimeo.com/video/'+EPS[i].vm+VP;
   cue.classList.remove('gone');
   now.textContent=EPS[i].n+' — '+EPS[i].t;
   [...eps.querySelectorAll('button')].forEach((b,j)=>b.setAttribute('aria-current',j===i));
-  if(click) document.querySelector('.player').scrollIntoView({behavior:'smooth',block:'start'});
-  pl.onload=watch;
+  if(click) box.scrollIntoView({behavior:'smooth',block:'start'});
 }
+document.getElementById('big').onclick=function(){
+  box.classList.add('big'); document.body.classList.add('locked');
+};
+document.getElementById('close').onclick=function(){
+  box.classList.remove('big'); document.body.classList.remove('locked');
+};
+document.addEventListener('keydown',e=>{if(e.key==='Escape')document.getElementById('close').onclick();});
 pick(0,false);
 </script>
 </body>
