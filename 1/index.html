@@ -15,6 +15,10 @@ body{background:var(--cream);color:var(--ink);font-family:'IBM Plex Sans Thai',s
 h1{font-size:clamp(1.7rem,6vw,2.3rem);font-weight:600;color:var(--deep);margin:.3rem 0 1.5rem}
 .player{position:relative;padding-top:56.25%;background:#000;border-radius:6px;overflow:hidden;scroll-margin-top:1rem}
 .player iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.cue{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none;transition:opacity .25s ease}
+.cue.gone{opacity:0}
+.cue span{width:88px;height:88px;border-radius:50%;background:rgba(255,255,255,.94);box-shadow:0 4px 20px rgba(0,0,0,.45);display:flex;align-items:center;justify-content:center}
+.cue span::after{content:"";margin-left:7px;border-left:28px solid var(--deep);border-top:18px solid transparent;border-bottom:18px solid transparent}
 .now{margin:.8rem 0 .4rem;font-size:1rem;color:var(--deep);font-weight:600}
 .hint{margin-bottom:2rem;font-size:.9rem;color:#7A857C}
 h2{font-size:1.1rem;font-weight:600;color:var(--deep);margin:2.2rem 0 .8rem}
@@ -35,7 +39,10 @@ ol li button[aria-current="true"]{color:var(--sage);font-weight:600}
   <p class="lv">เพลงที่ 1 · Lv. 1.5</p>
   <h1>Für Elise</h1>
 
-  <div class="player"><iframe id="pl" src="" allow="fullscreen; picture-in-picture" allowfullscreen></iframe></div>
+  <div class="player">
+    <iframe id="pl" src="" allow="fullscreen; picture-in-picture" allowfullscreen></iframe>
+    <div class="cue" id="cue"><span></span></div>
+  </div>
   <p class="now" id="now"></p>
   <p class="hint">กดปุ่มเล่นตรงกลางจอเพื่อเริ่มเรียน</p>
 
@@ -51,6 +58,7 @@ ol li button[aria-current="true"]{color:var(--sage);font-weight:600}
   <a class="hw" href="https://lin.ee/Nd6pxlW">ส่งการบ้านให้ครูตรวจทาง LINE</a>
 </div>
 
+<script src="https://player.vimeo.com/api/player.js"></script>
 <script>
 // แก้ตรงนี้ที่เดียว  vm = Vimeo ID
 const EPS = [
@@ -65,17 +73,27 @@ const EPS = [
   {n:"EP7",     t:"ท่อน C และจบเพลง",        vm:"1225332174"}
 ];
 const VP='?badge=0&autopause=0&title=0&byline=0&portrait=0';
-const pl=document.getElementById('pl'),now=document.getElementById('now'),eps=document.getElementById('eps');
+const pl=document.getElementById('pl'),now=document.getElementById('now'),
+      eps=document.getElementById('eps'),cue=document.getElementById('cue');
 EPS.forEach((e,i)=>{
   const li=document.createElement('li'),b=document.createElement('button');
   b.innerHTML='<span class="num">'+e.n+'</span><span>'+e.t+'</span>';
   b.onclick=()=>pick(i,true); li.appendChild(b); eps.appendChild(li);
 });
+function watch(){
+  try{
+    const p=new Vimeo.Player(pl);
+    p.on('play',()=>cue.classList.add('gone'));
+    p.on('ended',()=>cue.classList.remove('gone'));
+  }catch(err){}
+}
 function pick(i,click){
   pl.src='https://player.vimeo.com/video/'+EPS[i].vm+VP;
+  cue.classList.remove('gone');
   now.textContent=EPS[i].n+' — '+EPS[i].t;
   [...eps.querySelectorAll('button')].forEach((b,j)=>b.setAttribute('aria-current',j===i));
   if(click) document.querySelector('.player').scrollIntoView({behavior:'smooth',block:'start'});
+  pl.onload=watch;
 }
 pick(0,false);
 </script>
