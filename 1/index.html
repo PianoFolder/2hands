@@ -14,28 +14,25 @@ body.locked{overflow:hidden}
 .wrap{max-width:44rem;margin:0 auto;padding:2.5rem 1.25rem 4rem}
 .lv{font-size:.9rem;color:var(--sage);font-weight:600}
 h1{font-size:clamp(1.7rem,6vw,2.3rem);font-weight:600;color:var(--deep);margin:.3rem 0 1.5rem}
-
 .player{position:relative;padding-top:56.25%;background:#000;border-radius:6px;overflow:hidden;scroll-margin-top:1rem}
 .player iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
 .player.big{position:fixed;inset:0;z-index:120;padding-top:0;border-radius:0}
 .player.big iframe{top:50%;height:auto;aspect-ratio:16/9;max-height:100%;transform:translateY(-50%)}
-
 .cue{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none;transition:opacity .2s ease}
 .cue.gone{opacity:0}
 .cue svg{width:84px;height:84px;filter:drop-shadow(0 3px 14px rgba(0,0,0,.5))}
-
 .expand{display:flex;justify-content:flex-end;margin-top:.6rem}
 .expand button{display:flex;align-items:center;gap:.5rem;padding:.6rem 1rem;background:none;border:1px solid var(--line);border-radius:5px;color:#5B665D;font:inherit;font-size:.9rem;cursor:pointer}
 .expand button:hover{border-color:var(--sage);color:var(--sage)}
 .close{display:none;position:fixed;top:.9rem;right:.9rem;z-index:130;width:46px;height:46px;border-radius:50%;border:0;background:rgba(20,20,20,.6);color:#fff;font-size:1.5rem;line-height:1;cursor:pointer}
 body.locked .close{display:block}
-
 .now{margin:1.2rem 0 .4rem;font-size:1rem;color:var(--deep);font-weight:600}
 .hint{margin-bottom:2rem;font-size:.9rem;color:#7A857C}
 h2{font-size:1.1rem;font-weight:600;color:var(--deep);margin:2.2rem 0 .8rem}
-.sheets{display:flex;flex-wrap:wrap;gap:.7rem}
-.sheets a{flex:1 1 12rem;text-align:center;padding:.85rem 1rem;border:1px solid var(--sage);border-radius:5px;color:var(--deep);text-decoration:none;font-weight:600;font-size:.95rem}
-.sheets a:hover{background:var(--sage);color:#fff}
+.ask{font-size:.95rem;color:#5B665D;margin-bottom:1rem}
+.ask b{font-weight:600;color:var(--deep)}
+.ghost{display:block;padding:1rem;border:1px solid var(--sage);border-radius:5px;color:var(--deep);text-decoration:none;font-weight:600;text-align:center}
+.ghost:hover{background:var(--sage);color:#fff}
 ol{list-style:none}
 ol li button{width:100%;display:flex;gap:.9rem;align-items:baseline;padding:.95rem .3rem;background:none;border:0;border-top:1px solid var(--line);text-align:left;cursor:pointer;font:inherit;color:var(--ink)}
 ol li:last-child button{border-bottom:1px solid var(--line)}
@@ -68,10 +65,9 @@ ol li button[aria-current="true"]{color:var(--sage);font-weight:600}
   <p class="hint">กดปุ่มเล่นตรงกลางจอเพื่อเริ่มเรียน</p>
 
   <h2>โน้ตเพลง</h2>
-  <div class="sheets">
-    <a href="1-letter.pdf">โน้ตแบบตัวอักษร</a>
-    <a href="1-standard.pdf">โน้ตแบบสากล</a>
-  </div>
+  <p class="ask">โน้ตเพลงนี้อยู่ในหนังสือ กางไว้ข้างเปียโนได้เลย<br>
+  ถ้าอยากได้ไฟล์ไว้เปิดในไอแพดหรือแท็บเล็ต ถ่ายรูป<b>หน้าตารางไต่ระดับ 5 เพลง</b> ให้เห็นมือคุณในรูปด้วย ส่งมาทาง LINE พร้อมพิมพ์ว่า <b>ขอโน้ต</b> แล้วทีมครูแฟ้มจะส่งไฟล์โน้ตทั้ง 5 เพลงให้</p>
+  <a class="ghost" href="https://lin.ee/Nd6pxlW">ขอไฟล์โน้ตทาง LINE</a>
 
   <h2>คลิปสอน</h2>
   <ol id="eps"></ol>
@@ -97,10 +93,7 @@ const VP='?badge=0&autopause=0&title=0&byline=0&portrait=0';
 const pl=document.getElementById('pl'),now=document.getElementById('now'),
       eps=document.getElementById('eps'),cue=document.getElementById('cue'),
       box=document.getElementById('box');
-
 function hide(){cue.classList.add('gone');}
-
-// ดัก 3 ทาง กันปุ่มค้าง
 window.addEventListener('blur',hide);
 box.addEventListener('pointerdown',hide);
 pl.addEventListener('load',function(){
@@ -108,7 +101,6 @@ pl.addEventListener('load',function(){
     try{ new Vimeo.Player(pl).on('play',hide); }catch(err){}
   },300);
 });
-
 EPS.forEach((e,i)=>{
   const li=document.createElement('li'),b=document.createElement('button');
   b.innerHTML='<span class="num">'+e.n+'</span><span>'+e.t+'</span>';
