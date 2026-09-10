@@ -4,123 +4,24 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noindex,nofollow">
-<title>Für Elise — ปลดล็อกเปียโน 2 มือ</title>
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@300;400;600&display=swap" rel="stylesheet">
-<style>
-:root{--cream:#FBF8F1;--sage:#6F8F78;--deep:#3F5A48;--ink:#2B342D;--gold:#C2A15A;--line:#DFE4DA}
-*{box-sizing:border-box;margin:0;padding:0}
-body{background:var(--cream);color:var(--ink);font-family:'IBM Plex Sans Thai',system-ui,sans-serif;font-weight:300;line-height:1.7}
-body.locked{overflow:hidden}
-.wrap{max-width:44rem;margin:0 auto;padding:2.5rem 1.25rem 4rem}
-.lv{font-size:.9rem;color:var(--sage);font-weight:600}
-h1{font-size:clamp(1.7rem,6vw,2.3rem);font-weight:600;color:var(--deep);margin:.3rem 0 1.5rem}
-.player{position:relative;padding-top:56.25%;background:#000;border-radius:6px;overflow:hidden;scroll-margin-top:1rem}
-.player iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
-.player.big{position:fixed;inset:0;z-index:120;padding-top:0;border-radius:0}
-.player.big iframe{top:50%;height:auto;aspect-ratio:16/9;max-height:100%;transform:translateY(-50%)}
-.cue{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none;transition:opacity .2s ease}
-.cue.gone{opacity:0}
-.cue svg{width:84px;height:84px;filter:drop-shadow(0 3px 14px rgba(0,0,0,.5))}
-.expand{display:flex;justify-content:flex-end;margin-top:.6rem}
-.expand button{display:flex;align-items:center;gap:.5rem;padding:.6rem 1rem;background:none;border:1px solid var(--line);border-radius:5px;color:#5B665D;font:inherit;font-size:.9rem;cursor:pointer}
-.expand button:hover{border-color:var(--sage);color:var(--sage)}
-.close{display:none;position:fixed;top:.9rem;right:.9rem;z-index:130;width:46px;height:46px;border-radius:50%;border:0;background:rgba(20,20,20,.6);color:#fff;font-size:1.5rem;line-height:1;cursor:pointer}
-body.locked .close{display:block}
-.now{margin:1.2rem 0 .4rem;font-size:1rem;color:var(--deep);font-weight:600}
-.hint{margin-bottom:2rem;font-size:.9rem;color:#7A857C}
-h2{font-size:1.1rem;font-weight:600;color:var(--deep);margin:2.2rem 0 .8rem}
-.ask{font-size:.95rem;color:#5B665D;margin-bottom:1rem}
-.ask b{font-weight:600;color:var(--deep)}
-.ghost{display:block;padding:1rem;border:1px solid var(--sage);border-radius:5px;color:var(--deep);text-decoration:none;font-weight:600;text-align:center}
-.ghost:hover{background:var(--sage);color:#fff}
-ol{list-style:none}
-ol li button{width:100%;display:flex;gap:.9rem;align-items:baseline;padding:.95rem .3rem;background:none;border:0;border-top:1px solid var(--line);text-align:left;cursor:pointer;font:inherit;color:var(--ink)}
-ol li:last-child button{border-bottom:1px solid var(--line)}
-ol li button:hover{color:var(--sage)}
-ol li button[aria-current="true"]{color:var(--sage);font-weight:600}
-.num{color:var(--gold);font-weight:600;font-size:.85rem;min-width:4.2rem;flex-shrink:0}
-.hw{display:block;margin-top:2.5rem;padding:1.2rem;background:var(--sage);color:#fff;text-align:center;text-decoration:none;border-radius:6px;font-weight:600}
-</style>
+<title>Für Elise</title>
+<link rel="stylesheet" href="/2hands/style.css">
 </head>
 <body>
-<button class="close" id="close" aria-label="ปิดเต็มจอ">&times;</button>
-
-<div class="wrap">
-  <p class="lv">เพลงที่ 1 · Lv. 1.5</p>
-  <h1>Für Elise</h1>
-
-  <div class="player" id="box">
-    <iframe id="pl" src="" allow="fullscreen; picture-in-picture" allowfullscreen></iframe>
-    <div class="cue" id="cue">
-      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-        <path fill="#EFEBE2" fill-opacity=".9" fill-rule="evenodd"
-          d="M50 0A50 50 0 1 0 50 100A50 50 0 1 0 50 0Z M39 29L73 50L39 71Z"/>
-      </svg>
-    </div>
-  </div>
-
-  <div class="expand"><button id="big">ขยายเต็มจอ</button></div>
-
-  <p class="now" id="now"></p>
-  <p class="hint">กดปุ่มเล่นตรงกลางจอเพื่อเริ่มเรียน</p>
-
-  <h2>โน้ตเพลง</h2>
-  <p class="ask">อยากได้ไฟล์โน้ตไว้เปิดในไอแพด?<br>
-  ถ่ายรูป<b>หน้าตารางไต่ระดับ 5 เพลง</b> ในหนังสือ ส่งมาที่ LINE พร้อมพิมพ์ว่า <b>ขอโน้ต</b> แล้วแอดมินจะส่งไฟล์ให้</p>
-  <a class="ghost" href="https://lin.ee/Nd6pxlW">ขอไฟล์โน้ตทาง LINE</a>
-
-  <h2>คลิปสอน</h2>
-  <ol id="eps"></ol>
-
-  <a class="hw" href="https://lin.ee/Nd6pxlW">ส่งการบ้านให้ครูตรวจทาง LINE</a>
-</div>
-
-<script src="https://player.vimeo.com/api/player.js"></script>
 <script>
-// แก้ตรงนี้ที่เดียว  vm = Vimeo ID
-const EPS = [
-  {n:"ตัวอย่าง", t:"ฟังเพลงเต็ม Für Elise",  vm:"1225332451"},
-  {n:"ที่มา",    t:"เรื่องเล่าเบื้องหลังเพลงนี้", vm:"1225331447"},
-  {n:"EP1",     t:"ท่อน A มือขวา",          vm:"1225331446"},
-  {n:"EP2",     t:"ท่อน A มือซ้าย",          vm:"1225331448"},
-  {n:"EP3",     t:"ท่อน A สองมือ",           vm:"1225331449"},
-  {n:"EP4",     t:"ท่อน B มือขวา",          vm:"1225331581"},
-  {n:"EP5",     t:"ท่อน B มือซ้าย",          vm:"1225331776"},
-  {n:"EP6",     t:"ท่อน B สองมือ",           vm:"1225332086"},
-  {n:"EP7",     t:"ท่อน C และจบเพลง",        vm:"1225332174"}
-];
-const VP='?badge=0&autopause=0&title=0&byline=0&portrait=0';
-const pl=document.getElementById('pl'),now=document.getElementById('now'),
-      eps=document.getElementById('eps'),cue=document.getElementById('cue'),
-      box=document.getElementById('box');
-function hide(){cue.classList.add('gone');}
-window.addEventListener('blur',hide);
-box.addEventListener('pointerdown',hide);
-pl.addEventListener('load',function(){
-  setTimeout(function(){
-    try{ new Vimeo.Player(pl).on('play',hide); }catch(err){}
-  },300);
-});
-EPS.forEach((e,i)=>{
-  const li=document.createElement('li'),b=document.createElement('button');
-  b.innerHTML='<span class="num">'+e.n+'</span><span>'+e.t+'</span>';
-  b.onclick=()=>pick(i,true); li.appendChild(b); eps.appendChild(li);
-});
-function pick(i,click){
-  pl.src='https://player.vimeo.com/video/'+EPS[i].vm+VP;
-  cue.classList.remove('gone');
-  now.textContent=EPS[i].n+' — '+EPS[i].t;
-  [...eps.querySelectorAll('button')].forEach((b,j)=>b.setAttribute('aria-current',j===i));
-  if(click) box.scrollIntoView({behavior:'smooth',block:'start'});
-}
-document.getElementById('big').onclick=function(){
-  box.classList.add('big'); document.body.classList.add('locked');
-};
-document.getElementById('close').onclick=function(){
-  box.classList.remove('big'); document.body.classList.remove('locked');
-};
-document.addEventListener('keydown',e=>{if(e.key==='Escape')document.getElementById('close').onclick();});
-pick(0,false);
+const SONG={no:1,lv:"Lv. 1.5",title:"Für Elise",eps:[
+{n:"ตัวอย่าง",t:"ฟังเพลงเต็ม Für Elise",vm:"1225332451"},
+{n:"ที่มา",t:"เรื่องเล่าเบื้องหลังเพลงนี้",vm:"1225331447"},
+{n:"EP1",t:"ท่อน A มือขวา",vm:"1225331446"},
+{n:"EP2",t:"ท่อน A มือซ้าย",vm:"1225331448"},
+{n:"EP3",t:"ท่อน A สองมือ",vm:"1225331449"},
+{n:"EP4",t:"ท่อน B มือขวา",vm:"1225331581"},
+{n:"EP5",t:"ท่อน B มือซ้าย",vm:"1225331776"},
+{n:"EP6",t:"ท่อน B สองมือ",vm:"1225332086"},
+{n:"EP7",t:"ท่อน C และจบเพลง",vm:"1225332174"}
+]};
 </script>
+<script src="https://player.vimeo.com/api/player.js"></script>
+<script src="/2hands/app.js"></script>
 </body>
 </html>
