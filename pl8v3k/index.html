@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>วิธีวางแผนการฝึก</title>
+<link rel="stylesheet" href="/2hands/style.css">
+<style>.solo{margin-top:1.5rem}</style>
+</head>
+<body>
+<button class="close" id="close" aria-label="ปิดเต็มจอ">&times;</button>
+<div class="wrap">
+  <p class="lv">ปลดล็อกเปียโน 2 มือ</p>
+  <h1>แผนการฝึก</h1>
+  <div class="player" id="box">
+    <iframe id="pl" src="" allow="fullscreen; picture-in-picture" allowfullscreen></iframe>
+    <div class="cue" id="cue">
+      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <path fill="#EFEBE2" fill-opacity=".9" fill-rule="evenodd"
+          d="M50 0A50 50 0 1 0 50 100A50 50 0 1 0 50 0Z M39 29L73 50L39 71Z"/>
+      </svg>
+    </div>
+  </div>
+  <div class="expand"><button id="big">ขยายเต็มจอ</button></div>
+  <p class="hint solo">กดปุ่มเล่นตรงกลางจอเพื่อดูคลิป</p>
+  <a class="hw" href="https://lin.ee/Nd6pxlW">มีคำถาม ทักครูแฟ้มทาง LINE</a>
+</div>
+<script src="https://player.vimeo.com/api/player.js"></script>
+<script>
+var VM="ใส่ID";
+var pl=document.getElementById('pl'),cue=document.getElementById('cue'),box=document.getElementById('box');
+pl.src='https://player.vimeo.com/video/'+VM+'?badge=0&autopause=0&title=0&byline=0&portrait=0';
+function hide(){cue.classList.add('gone');}
+window.addEventListener('blur',hide);
+box.addEventListener('pointerdown',hide);
+pl.addEventListener('load',function(){
+  setTimeout(function(){try{new Vimeo.Player(pl).on('play',hide);}catch(e){}},300);
+});
+document.getElementById('big').onclick=function(){
+  box.classList.add('big'); document.body.classList.add('locked');
+};
+document.getElementById('close').onclick=function(){
+  box.classList.remove('big'); document.body.classList.remove('locked');
+};
+document.addEventListener('keydown',function(e){
+  if(e.key==='Escape'){box.classList.remove('big');document.body.classList.remove('locked');}
+});
+</script>
+</body>
+</html>
