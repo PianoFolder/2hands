@@ -3,7 +3,6 @@ var VP='?badge=0&autopause=0&title=0&byline=0&portrait=0';
 var LINE='https://lin.ee/Nd6pxlW';
 document.title=SONG.title+' — ปลดล็อกเปียโน 2 มือ';
 document.body.innerHTML=
-'<button class="close" id="close" aria-label="ปิดเต็มจอ">&times;</button>'+
 '<div class="wrap">'+
 '<p class="lv">เพลงที่ '+SONG.no+' · '+SONG.lv+'</p>'+
 '<h1>'+SONG.title+'</h1>'+
@@ -43,13 +42,7 @@ function pick(i,click){
   if(click) box.scrollIntoView({behavior:'smooth',block:'start'});
 }
 document.getElementById('big').onclick=function(){
-  box.classList.add('big'); document.body.classList.add('locked');
+  try{var p=new Vimeo.Player(pl);if(p.requestFullscreen)p.requestFullscreen().catch(function(){});}catch(e){}
 };
-document.getElementById('close').onclick=function(){
-  box.classList.remove('big'); document.body.classList.remove('locked');
-};
-document.addEventListener('keydown',function(e){
-  if(e.key==='Escape'){box.classList.remove('big');document.body.classList.remove('locked');}
-});
 pick(0,false);
 })();
