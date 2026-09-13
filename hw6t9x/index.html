@@ -6,10 +6,11 @@
 <meta name="robots" content="noindex,nofollow">
 <title>วิธีถ่ายคลิปส่งการบ้าน</title>
 <link rel="stylesheet" href="/2hands/style.css">
-<style>.solo{margin-top:1.5rem}</style>
+<style>.solo{margin-top:1.5rem}
+/* vertical (9:16) video for this page */
+.player{max-width:22rem;margin-inline:auto;padding-top:0;aspect-ratio:9/16}</style>
 </head>
 <body>
-<button class="close" id="close" aria-label="ปิดเต็มจอ">&times;</button>
 <div class="wrap">
   <p class="lv">ปลดล็อกเปียโน 2 มือ</p>
   <h1>วิธีถ่ายคลิปส่งการบ้าน</h1>
@@ -34,18 +35,11 @@ pl.src='https://player.vimeo.com/video/'+VM+'?badge=0&autopause=0&title=0&byline
 function hide(){cue.classList.add('gone');}
 window.addEventListener('blur',hide);
 box.addEventListener('pointerdown',hide);
-pl.addEventListener('load',function(){
-  setTimeout(function(){try{new Vimeo.Player(pl).on('play',hide);}catch(e){}},300);
-});
+var player;
+try{player=new Vimeo.Player(pl);player.on('play',hide);}catch(e){}
 document.getElementById('big').onclick=function(){
-  box.classList.add('big'); document.body.classList.add('locked');
+  if(player&&player.requestFullscreen){player.requestFullscreen().catch(function(){});}
 };
-document.getElementById('close').onclick=function(){
-  box.classList.remove('big'); document.body.classList.remove('locked');
-};
-document.addEventListener('keydown',function(e){
-  if(e.key==='Escape'){box.classList.remove('big');document.body.classList.remove('locked');}
-});
 </script>
 </body>
 </html>
