@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>เรียนต่อหลังจบเล่ม 2 — Piano Folder</title>
+<meta name="description" content="จบหนังสือ ปลดล็อกเปียโน 2 มือ แล้ว เรียนอะไรต่อดี เลือกเพลง Lv.3 ที่ชอบจาก Piano Collection ได้เลย">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anuphan:wght@400;600;700&family=Plus+Jakarta+Sans:wght@400;700;800&display=swap">
+<style>
+/* โทนเขียวเสจ ตามหนังสือ ปลดล็อกเปียโน 2 มือ */
+:root{
+  --c-canvas:#FBFCFA;--c-card:#FFFFFF;--c-tint:#EAF2E7;--c-ink:#2C3A2B;--c-ink-soft:#5A6958;
+  --c-head:#3D5A3B;--c-line:#DCE6D8;--c-shape:#C5DBBF;--c-action:#3F6B3D;--c-action-hover:#2C4B2B;
+  --c-sage:#9BBB99;
+  /* สีแบรนด์ ใช้ตัดเฉพาะจุดสำคัญ: เหลือง = สิ่งที่ต้องทำต่อ / น้ำเงิน = ปุ่มไปเลือกเพลง */
+  --c-sun:#F2D48A;--c-sun-ink:#1B2F45;--c-brand:#2E5A80;--c-brand-hover:#1B2F45;
+  --font-sans:"Plus Jakarta Sans","Anuphan","Noto Sans Thai","Leelawadee UI","Thonburi",system-ui,sans-serif;
+  --fs-display:clamp(2rem,1.4rem + 3vw,3.25rem);--fs-h2:clamp(1.5rem,1.2rem + 1.5vw,2.25rem);
+  --fs-body:1.125rem;--fs-small:.9375rem;--lh-head:1.35;--lh-body:1.8;
+  --container:60rem;--measure:38rem;--section-y:clamp(2.5rem,2rem + 3vw,4.25rem);
+  --r-panel:28px;--r-card:18px;--r-pill:999px;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--c-canvas);color:var(--c-ink);font:400 var(--fs-body)/var(--lh-body) var(--font-sans);padding-bottom:env(safe-area-inset-bottom,0px)}
+h1,h2,h3{margin:0 0 .5em;font-weight:700;line-height:var(--lh-head);color:var(--c-head);text-wrap:balance}
+h1{font-size:var(--fs-display)}h2{font-size:var(--fs-h2)}
+p{margin:0 0 1em;max-width:var(--measure)}
+p,li{text-wrap:pretty}
+a{color:var(--c-action);text-underline-offset:.2em}
+:focus-visible{outline:3px solid var(--c-ink);outline-offset:3px}
+.wrap{width:min(100% - 2rem,var(--container));margin-inline:auto}
+section{padding-block:var(--section-y)}
+.nowrap{white-space:nowrap}
+.hl{background:linear-gradient(transparent 56%,var(--c-sun) 56% 94%,transparent 94%);padding-inline:.12em;margin-inline:-.12em;-webkit-box-decoration-break:clone;box-decoration-break:clone}
+.hello{display:block;font-weight:600;font-size:1.125rem;color:var(--c-action);margin-bottom:.5rem}
+.soft{color:var(--c-ink-soft)}
+.fine{font-size:var(--fs-small);color:var(--c-ink-soft)}
+
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.5em;min-height:52px;padding:.8em 1.75em;border:0;border-radius:var(--r-pill);background:var(--c-action);color:#fff;font:700 1.05rem/1.3 var(--font-sans);text-decoration:none;cursor:pointer}
+.btn:hover{background:var(--c-action-hover)}
+.btn--brand{background:var(--c-brand)}
+.btn--brand:hover{background:var(--c-brand-hover)}
+.btn--quiet{background:transparent;color:var(--c-action);box-shadow:inset 0 0 0 2px currentColor;min-height:44px;padding:.55em 1.25em;font-size:.95rem}
+.btn--quiet:hover{background:var(--c-tint)}
+
+/* header */
+.top{border-bottom:1px solid var(--c-line);background:var(--c-card)}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;min-height:60px;gap:1rem}
+.brand{font-weight:800;color:var(--c-head);text-decoration:none;font-size:1.1rem}
+.top a.link{font-size:var(--fs-small);font-weight:600;text-decoration:none}
+
+/* hero */
+.hero{padding-bottom:1.5rem}
+.book-badge{display:inline-block;background:var(--c-sage);color:#26341F;font-weight:600;font-size:var(--fs-small);padding:.3em .9em;border-radius:var(--r-pill);margin-bottom:1rem}
+.ladder{list-style:none;padding:0;margin:1.75rem 0 0;display:grid;grid-template-columns:repeat(5,1fr);gap:.4rem;max-width:30rem}
+.ladder li{text-align:center;font-size:.85rem;font-weight:600;color:var(--c-ink-soft);padding:.55rem .2rem;border-radius:12px;background:var(--c-tint);line-height:1.4}
+.ladder li.done{background:var(--c-shape);color:var(--c-ink)}
+.ladder li.here{background:var(--c-action);color:#fff}
+.ladder li.next{background:var(--c-sun);color:var(--c-sun-ink)}
+.ladder small{display:block;font-weight:400;font-size:.75rem}
+
+/* why */
+.why{background:var(--c-tint);border-radius:var(--r-panel);padding:clamp(1.25rem,1rem + 2vw,2.5rem)}
+.why p:last-child{margin-bottom:0}
+
+/* offer */
+.offer{display:grid;gap:1.4rem}
+.checks{list-style:none;padding:0;margin:0;display:grid;gap:.6rem}
+.checks li{display:flex;gap:.6rem;align-items:flex-start}
+.checks li::before{content:"✓";flex:none;width:1.6rem;height:1.6rem;border-radius:50%;background:var(--c-tint);color:var(--c-action);font-weight:700;display:grid;place-items:center;font-size:.9rem;margin-top:.2rem}
+.prices{display:grid;grid-template-columns:repeat(3,1fr);gap:.6rem;margin-top:.4rem}
+.price{background:var(--c-card);border:1px solid var(--c-line);border-radius:16px;padding:1rem .4rem .85rem;text-align:center;position:relative;line-height:1.5}
+.price b{display:block;font-size:1.3rem;color:var(--c-head)}
+.price span{display:block;font-size:var(--fs-small);color:var(--c-ink-soft)}
+.price em{display:block;font-style:normal;font-size:.8rem;font-weight:600;color:var(--c-action);margin-top:.15rem}
+.price.best{border:2px solid var(--c-brand)}
+.price.best b,.price.best em{color:var(--c-brand)}
+.price.best::before{content:"แนะนำ";position:absolute;top:-.8rem;left:50%;transform:translateX(-50%);background:var(--c-sun);color:var(--c-sun-ink);font-size:.8rem;font-weight:700;padding:.05em .7em;border-radius:var(--r-pill);white-space:nowrap}
+.go{display:grid;justify-items:center;text-align:center;gap:.6rem;margin-top:.6rem}
+.go .btn{width:min(100%,24rem)}
+.go p{margin:0}
+
+/* ending */
+.alt{border-top:1px solid var(--c-line);padding-top:1.5rem;display:grid;gap:.9rem}
+.alt-row{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:.75rem 1.25rem;background:var(--c-card);border:1px solid var(--c-line);border-radius:var(--r-card);padding:1rem 1.1rem}
+.alt-row p{margin:0}
+.alt-row b{color:var(--c-head)}
+
+footer{border-top:1px solid var(--c-line);padding-block:2rem;text-align:center;font-size:var(--fs-small);color:var(--c-ink-soft)}
+@media (max-width:380px){.price b{font-size:1.15rem}}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="https://pianofolder.com/">Piano Folder</a>
+    <a class="link" href="https://pianofolder.com/piano-collection/?src=2hands">คลังเพลงทั้งหมด</a>
+  </div>
+</header>
+
+<main>
+<section class="hero">
+  <div class="wrap">
+    <span class="book-badge">ปลดล็อกเปียโน 2 มือ · เรียนจบแล้ว</span>
+    <span class="hello">สวัสดีครับ ผมครูแฟ้ม 👋</span>
+    <h1><span class="nowrap">ตอนนี้คุณก้าวเข้า</span><wbr> <span class="nowrap hl">Lv.3 แล้วครับ</span></h1>
+    <p class="soft">เล่นครบ 5 เพลงในเล่มได้ แปลว่าสองมือของคุณเริ่มแยกกันทำงานได้แล้ว หน้านี้ผมบอกไว้ว่าควรเรียนอะไรต่อครับ</p>
+    <ol class="ladder" aria-label="ระดับของคุณ">
+      <li class="done">Lv.1<small>ผ่าน</small></li>
+      <li class="done">Lv.2<small>ผ่าน</small></li>
+      <li class="here">Lv.3<small>คุณอยู่ตรงนี้</small></li>
+      <li class="next">Lv.4<small>เป้าหมายถัดไป</small></li>
+      <li>Lv.5<small>&nbsp;</small></li>
+    </ol>
+  </div>
+</section>
+
+<section style="padding-top:0">
+  <div class="wrap">
+    <div class="why">
+      <h2><span class="nowrap">ก่อนขึ้น Lv.4</span><wbr> <span class="nowrap">เล่นเพลง<span class="hl">เพิ่มอีก 3–5 เพลง</span></span></h2>
+      <p>จาก Lv.3 ไป Lv.4 คือก้าวที่ใหญ่ที่สุดของมือใหม่ มือขวาต้องเล่นหลายโน้ตพร้อมกัน มือซ้ายต้องเคลื่อนเยอะขึ้น คนที่ข้ามไปเร็วเกินมักติดแล้วเลิกกลางทาง</p>
+      <p>เล่นเพลงระดับใกล้เคียงกันเพิ่มอีก 3–5 เพลง สองมือจะคล่องจนก้าวไป Lv.4 ได้แบบไม่สะดุดครับ</p>
+    </div>
+  </div>
+</section>
+
+<section id="offer" style="padding-top:0">
+  <div class="wrap offer">
+    <div>
+      <h2>Piano Collection<br><span class="nowrap">เลือกเพลงที่อยากเล่น</span><wbr><span class="nowrap">ได้เอง</span></h2>
+      <ul class="checks">
+        <li><span>สอนแบบเดียวกับในเล่ม <span class="nowrap">มือขวา มือซ้าย</span> แล้วค่อยรวมสองมือ ทีละท่อน</span></li>
+        <li><span>ใช้โน้ตตัวอักษร อ่านโน้ตไม่เป็นก็เล่นได้</span></li>
+        <li><span>ส่งคลิปการบ้านมาทาง LINE <span class="nowrap">ทีมครูแฟ้ม</span>ตรวจให้</span></li>
+      </ul>
+    </div>
+    <div class="prices" role="list">
+      <div class="price" role="listitem"><b>฿490</b><span>1 เพลง</span></div>
+      <div class="price" role="listitem"><b>฿1,290</b><span>3 เพลง</span><em>ประหยัด ฿180</em></div>
+      <div class="price best" role="listitem"><b>฿1,990</b><span>5 เพลง</span><em>ประหยัด ฿460</em></div>
+    </div>
+    <div class="go">
+      <a class="btn btn--brand" id="goBtn" href="https://pianofolder.com/piano-collection/?src=2hands#songs">เลือกเพลงที่ชอบ →</a>
+      <p class="fine" id="goNote">เลือกเพลงที่ชอบจากคลังเพลงทั้งหมด ทุกระดับ มีตัวอย่างให้ฟังทุกเพลง<br>เลือก 3–5 เพลงได้ราคาแพ็ก แล้วสั่งได้ในหน้านั้นเลยครับ</p>
+    </div>
+  </div>
+</section>
+
+<section style="padding-top:0">
+  <div class="wrap alt">
+    <div class="alt-row">
+      <p><b>อยากเล่นไปร้องไปด้วย?</b> <span class="soft">คอร์ส Piano + Singing ฿3,900 เล่นเปียโนคลอเสียงร้องของตัวเอง</span></p>
+      <a class="btn btn--quiet" id="singBtn" href="https://lin.ee/Nd6pxlW">สอบถามทาง LINE</a>
+    </div>
+    <p class="fine" style="text-align:center;margin:0 auto">มีคำถามเรื่องเลือกเพลง ทักครูได้ที่ LINE <a id="lineLink" href="https://lin.ee/Nd6pxlW">@PianoFolder</a></p>
+  </div>
+</section>
+</main>
+
+<footer>© <span id="yr">2026</span> Piano Folder · ครูแฟ้ม</footer>
+
+<script>
+/* ===== แก้ข้อมูลตรงนี้ที่เดียว ===== */
+const LINE_ID   = '@PianoFolder';
+const LINE_URL  = 'https://lin.ee/Nd6pxlW';
+const SOURCE    = 'มาจาก: หนังสือ ปลดล็อกเปียโน 2 มือ';   // ติดท้ายข้อความ ไว้ดูว่านักเรียนมาจากไหน
+const SHEET_CSV = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTCWW1n3zG4sQRxEgOSTd1ssqgPI_hKNsvOjmRAEXAoRXYymoRiUm_O6BylGWU376YF9jFMuUgs_sRj/pub?gid=702304224&single=true&output=csv'; // ใช้นับจำนวนเพลงทั้งหมดในคลัง
+/* ================================== */
+
+const lineMsg = t => 'https://line.me/R/oaMessage/' + encodeURIComponent(LINE_ID) + '/?' + encodeURIComponent(t);
+document.getElementById('singBtn').href = lineMsg('สวัสดีครูแฟ้ม อยากสอบถามคอร์ส Piano + Singing\n(' + SOURCE + ')');
+document.getElementById('lineLink').href = LINE_URL;
+document.getElementById('yr').textContent = new Date().getFullYear();
+
+/* นับเพลงทั้งหมดจาก Google Sheet แล้วเขียนว่า "มีให้เลือกกว่า N เพลง" — ถ้าโหลดไม่ได้ ข้อความเดิมยังอยู่ */
+function parseCSV(t){
+  const rows = []; let row = [], f = '', q = false;
+  for (let i = 0; i < t.length; i++){
+    const ch = t[i];
+    if (q){ if (ch === '"'){ if (t[i+1] === '"'){ f += '"'; i++; } else q = false; } else f += ch; }
+    else if (ch === '"') q = true;
+    else if (ch === ','){ row.push(f); f = ''; }
+    else if (ch === '\n'){ row.push(f); rows.push(row); row = []; f = ''; }
+    else if (ch !== '\r') f += ch;
+  }
+  if (f !== '' || row.length){ row.push(f); rows.push(row); }
+  return rows;
+}
+(async () => {
+  try {
+    const res = await fetch(SHEET_CSV, {cache:'no-store'});
+    if (!res.ok) return;
+    const rows = parseCSV(await res.text());
+    const h = rows.findIndex(r => (r[0] || '').trim() === 'ID');
+    if (h < 0) return;
+    const nCol = rows[h].findIndex(x => x.trim() === 'ชื่อเพลง');
+    if (nCol < 0) return;
+    const n = rows.slice(h + 1).filter(r => /^PC\d+$/.test((r[0] || '').trim()) && (r[nCol] || '').trim()).length;
+    const shown = Math.floor(n / 5) * 5;
+    if (shown < 10) return;
+    document.getElementById('goNote').innerHTML =
+      'มีเพลงให้เลือกกว่า ' + shown + ' เพลง ทุกระดับ พร้อมตัวอย่างให้ฟังทุกเพลง<br>เลือก 3–5 เพลงได้ราคาแพ็ก แล้วสั่งได้ในหน้านั้นเลยครับ';
+  } catch (e) { /* ใช้ข้อความเดิม */ }
+})();
+</script>
+</body>
+</html>
