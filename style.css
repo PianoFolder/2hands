@@ -32,3 +32,6 @@ ol li button:hover{color:var(--sage)}
 ol li button[aria-current="true"]{color:var(--sage);font-weight:600}
 .num{color:var(--gold);font-weight:600;font-size:.85rem;min-width:4.2rem;flex-shrink:0}
 .hw{display:block;margin-top:2.5rem;padding:1.2rem;background:var(--sage);color:#fff;text-align:center;text-decoration:none;border-radius:6px;font-weight:600}
+.gate input{width:100%;padding:1rem;font:inherit;font-size:1.1rem;border:1px solid var(--line);border-radius:5px;background:#fff;color:var(--ink);margin-top:.5rem}
+.gate input:focus{outline:2px solid var(--sage);outline-offset:1px}
+.err{min-height:1.6rem;color:#B04A3A;font-size:.9rem;margin:.5rem 0}
