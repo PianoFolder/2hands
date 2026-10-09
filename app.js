@@ -1,8 +1,37 @@
 (function(){
+var PASS=SONG.pass;
+var KEY='pf2h'+SONG.no;
 var VP='?badge=0&autopause=0&title=0&byline=0&portrait=0';
 var LINE='https://lin.ee/Nd6pxlW';
 document.title=SONG.title+' — ปลดล็อกเปียโน 2 มือ';
+
+function ok(){try{return localStorage.getItem(KEY)==='1';}catch(e){return false;}}
+function save(){try{localStorage.setItem(KEY,'1');}catch(e){}}
+
+function gate(){
+  document.body.innerHTML=
+  '<div class="wrap gate">'+
+  '<p class="lv">เพลงที่ '+SONG.no+' · '+SONG.title+'</p>'+
+  '<h1>ใส่รหัสเพลงนี้</h1>'+
+  '<p class="ask">รหัสอยู่ในหน้าเปิดเพลงนี้ในหนังสือ ใส่ครั้งเดียว เครื่องนี้จะจำไว้ให้ ครั้งต่อไปเข้าได้เลย</p>'+
+  '<input id="pw" type="text" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" placeholder="พิมพ์รหัสที่นี่">'+
+  '<p class="err" id="err"></p>'+
+  '<button class="hw" id="go" style="width:100%;border:0;cursor:pointer;font-size:1rem">เข้าเรียน</button>'+
+  '<a class="ghost" style="margin-top:1.2rem" href="'+LINE+'">หารหัสไม่เจอ ทักครูแฟ้มทาง LINE</a>'+
+  '</div>';
+  var pw=document.getElementById('pw'),err=document.getElementById('err');
+  function go(){
+    if(pw.value.trim().toLowerCase()===PASS){save();build();}
+    else{err.textContent='รหัสไม่ถูกต้อง ลองดูอีกครั้งนะครับ';pw.value='';pw.focus();}
+  }
+  document.getElementById('go').onclick=go;
+  pw.addEventListener('keydown',function(e){if(e.key==='Enter')go();});
+  pw.focus();
+}
+
+function build(){
 document.body.innerHTML=
+'<button class="close" id="close" aria-label="ปิดเต็มจอ">&times;</button>'+
 '<div class="wrap">'+
 '<p class="lv">เพลงที่ '+SONG.no+' · '+SONG.lv+'</p>'+
 '<h1>'+SONG.title+'</h1>'+
@@ -42,7 +71,16 @@ function pick(i,click){
   if(click) box.scrollIntoView({behavior:'smooth',block:'start'});
 }
 document.getElementById('big').onclick=function(){
-  try{var p=new Vimeo.Player(pl);if(p.requestFullscreen)p.requestFullscreen().catch(function(){});}catch(e){}
+  box.classList.add('big'); document.body.classList.add('locked');
 };
+document.getElementById('close').onclick=function(){
+  box.classList.remove('big'); document.body.classList.remove('locked');
+};
+document.addEventListener('keydown',function(e){
+  if(e.key==='Escape'){box.classList.remove('big');document.body.classList.remove('locked');}
+});
 pick(0,false);
+}
+
+if(ok()) build(); else gate();
 })();
