@@ -13,7 +13,7 @@ function gate(){
   '<div class="wrap gate">'+
   '<p class="lv">เพลงที่ '+SONG.no+' · '+SONG.title+'</p>'+
   '<h1>ใส่รหัสเพลงนี้</h1>'+
-  '<p class="ask">รหัสอยู่ในหน้าเปิดเพลงนี้ในหนังสือ เก็บรหัสนี้ไว้ เผื่อเปิดจากแอปอื่นหรือเครื่องอื่นต้องใส่ใหม่</p>'+
+  '<p class="ask">รหัสอยู่ในหน้าเปิดเพลงนี้ในหนังสือ ใส่ครั้งเดียวต่อเครื่อง ถ้าเปิดจากแอปอื่นหรือเครื่องอื่น ใส่รหัสเดิมจากหนังสือได้เลย</p>'+
   '<input id="pw" type="text" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" placeholder="พิมพ์รหัสที่นี่">'+
   '<p class="err" id="err"></p>'+
   '<button class="hw" id="go" style="width:100%;border:0;cursor:pointer;font-size:1rem">เข้าเรียน</button>'+
