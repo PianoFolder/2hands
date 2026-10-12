@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>แยกฝึกทีละมือ — ปลดล็อกเปียโน 2 มือ</title>
+<link rel="stylesheet" href="/2hands/style.css">
+<style>
+.solo{margin-top:1.5rem}
+.player.vert{padding-top:0;aspect-ratio:9/16;max-width:340px;margin:0 auto}
+.player.vert.big{max-width:none;aspect-ratio:auto;margin:0}
+.player.vert.big iframe{top:0;left:50%;right:auto;height:100%;width:auto;max-width:100%;aspect-ratio:9/16;transform:translateX(-50%)}
+.expand{max-width:340px;margin-left:auto;margin-right:auto}
+</style>
+</head>
+<body>
+<button class="close" id="close" aria-label="ปิดเต็มจอ">&times;</button>
+<div class="wrap">
+  <p class="lv">ปลดล็อกเปียโน 2 มือ</p>
+  <h1>หัวใจของการเล่น 2 มือ<br>คือแยกฝึกทีละมือ</h1>
+  <div class="player vert" id="box">
+    <iframe id="pl" src="https://www.youtube.com/embed/QQy0ETbOLSA?rel=0&playsinline=1" allow="fullscreen; picture-in-picture; encrypted-media" allowfullscreen></iframe>
+    <div class="cue" id="cue">
+      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <path fill="#EFEBE2" fill-opacity=".9" fill-rule="evenodd"
+          d="M50 0A50 50 0 1 0 50 100A50 50 0 1 0 50 0Z M39 29L73 50L39 71Z"/>
+      </svg>
+    </div>
+  </div>
+  <div class="expand"><button id="big">ขยายเต็มจอ</button></div>
+  <p class="hint solo">กดปุ่มเล่นตรงกลางจอเพื่อดูคลิป</p>
+  <a class="hw" href="https://lin.ee/Nd6pxlW">มีคำถาม ทักครูแฟ้มทาง LINE</a>
+</div>
+<script>
+var cue=document.getElementById('cue'),box=document.getElementById('box');
+function hide(){cue.classList.add('gone');}
+window.addEventListener('blur',hide);
+box.addEventListener('pointerdown',hide);
+document.getElementById('big').onclick=function(){box.classList.add('big');document.body.classList.add('locked');};
+document.getElementById('close').onclick=function(){box.classList.remove('big');document.body.classList.remove('locked');};
+document.addEventListener('keydown',function(e){if(e.key==='Escape'){box.classList.remove('big');document.body.classList.remove('locked');}});
+</script>
+</body>
+</html>
