@@ -35,7 +35,7 @@ document.body.innerHTML=
 '<div class="wrap">'+
 '<p class="lv">เพลงที่ '+SONG.no+' · '+SONG.lv+'</p>'+
 '<h1>'+SONG.title+'</h1>'+
-'<div class="player" id="box"><iframe id="pl" src="" allow="fullscreen; picture-in-picture" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>'+
+'<div class="player" id="box">'+
 '<div class="cue" id="cue"><svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><path fill="#EFEBE2" fill-opacity=".9" fill-rule="evenodd" d="M50 0A50 50 0 1 0 50 100A50 50 0 1 0 50 0Z M39 29L73 50L39 71Z"/></svg></div></div>'+
 '<div class="expand"><button id="big">ขยายเต็มจอ</button></div>'+
 '<p class="now" id="now"></p>'+
@@ -46,15 +46,25 @@ document.body.innerHTML=
 '<h2>คลิปสอน</h2><ol id="eps"></ol>'+
 '<a class="hw" href="'+LINE+'">ส่งการบ้านให้ครูตรวจทาง LINE</a>'+
 '</div>';
-var pl=document.getElementById('pl'),now=document.getElementById('now'),
-    eps=document.getElementById('eps'),cue=document.getElementById('cue'),
-    box=document.getElementById('box');
+var now=document.getElementById('now'),eps=document.getElementById('eps'),
+    cue=document.getElementById('cue'),box=document.getElementById('box');
 function hide(){cue.classList.add('gone');}
 window.addEventListener('blur',hide);
 box.addEventListener('pointerdown',hide);
-pl.addEventListener('load',function(){
-  setTimeout(function(){try{new Vimeo.Player(pl).on('play',hide);}catch(e){}},300);
-});
+function mount(id){
+  var old=document.getElementById('pl');
+  if(old) old.parentNode.removeChild(old);
+  var f=document.createElement('iframe');
+  f.id='pl';
+  f.setAttribute('allow','fullscreen; picture-in-picture');
+  f.setAttribute('allowfullscreen','');
+  f.setAttribute('referrerpolicy','strict-origin-when-cross-origin');
+  f.src='https://player.vimeo.com/video/'+id+VP;
+  f.addEventListener('load',function(){
+    setTimeout(function(){try{new Vimeo.Player(f).on('play',hide);}catch(e){}},300);
+  });
+  box.insertBefore(f,cue);
+}
 SONG.eps.forEach(function(e,i){
   var li=document.createElement('li'),b=document.createElement('button');
   b.innerHTML='<span class="num">'+e.n+'</span><span>'+e.t+'</span>';
@@ -63,7 +73,7 @@ SONG.eps.forEach(function(e,i){
 });
 function pick(i,click){
   var e=SONG.eps[i];
-  pl.src='https://player.vimeo.com/video/'+e.vm+VP;
+  mount(e.vm);
   cue.classList.remove('gone');
   now.textContent=e.n+' — '+e.t;
   var bs=eps.querySelectorAll('button');
