@@ -9,28 +9,17 @@
 <style>
 .solo{margin-top:1.5rem}
 .player.vert{padding-top:0;aspect-ratio:9/16;max-width:340px;margin:0 auto}
-.player.vert.big{max-width:none;aspect-ratio:auto;margin:0}
-.player.vert.big iframe{top:0;left:50%;right:auto;height:100%;width:auto;max-width:100%;aspect-ratio:9/16;transform:translateX(-50%)}
-.expand{max-width:340px;margin-left:auto;margin-right:auto}
 </style>
 </head>
 <body>
-<button class="close" id="close" aria-label="ปิดเต็มจอ">&times;</button>
 <div class="wrap">
   <p class="lv">ปลดล็อกเปียโน 2 มือ</p>
   <h1>หัวใจของการเล่น 2 มือ<br>คือแยกฝึกทีละมือ</h1>
   <div class="player vert" id="box">
     <iframe id="pl" src="https://www.youtube.com/embed/QQy0ETbOLSA?rel=0&playsinline=1" allow="fullscreen; picture-in-picture; encrypted-media" allowfullscreen></iframe>
   </div>
-  <div class="expand"><button id="big">ขยายเต็มจอ</button></div>
   <p class="hint solo">กดปุ่มเล่นตรงกลางจอเพื่อดูคลิป</p>
   <a class="hw" href="https://lin.ee/Nd6pxlW">มีคำถาม ทักครูแฟ้มทาง LINE</a>
 </div>
-<script>
-var box=document.getElementById('box');
-document.getElementById('big').onclick=function(){box.classList.add('big');document.body.classList.add('locked');};
-document.getElementById('close').onclick=function(){box.classList.remove('big');document.body.classList.remove('locked');};
-document.addEventListener('keydown',function(e){if(e.key==='Escape'){box.classList.remove('big');document.body.classList.remove('locked');}});
-</script>
 </body>
 </html>
