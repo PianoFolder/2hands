@@ -39,7 +39,7 @@ document.body.innerHTML=
 '<div class="cue" id="cue"><svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><path fill="#EFEBE2" fill-opacity=".9" fill-rule="evenodd" d="M50 0A50 50 0 1 0 50 100A50 50 0 1 0 50 0Z M39 29L73 50L39 71Z"/></svg></div></div>'+
 '<div class="expand"><button id="big">ขยายเต็มจอ</button></div>'+
 '<p class="now" id="now"></p>'+
-'<p class="hint">กดปุ่มเล่นตรงกลางจอเพื่อเริ่มเรียน</p>'+
+'<p class="hint">กดปุ่มเล่นตรงกลางจอเพื่อเริ่มเรียน<br>ถ้าคลิปขึ้นว่า Sorry ให้กดชื่อ EP นั้นอีกครั้ง</p>'+
 '<h2>โน้ตเพลง</h2>'+
 '<p class="ask">อยากได้ไฟล์โน้ตไว้เปิดในไอแพด?<br>ถ่ายรูป<b>หน้าตารางไต่ระดับ 5 เพลง</b> ในหนังสือ ส่งมาที่ LINE พร้อมพิมพ์ว่า <b>ขอโน้ต</b> แล้วแอดมินจะส่งไฟล์ให้</p>'+
 '<a class="ghost" href="'+LINE+'">ขอไฟล์โน้ตทาง LINE</a>'+
@@ -81,7 +81,12 @@ function pick(i,click){
   if(click) box.scrollIntoView({behavior:'smooth',block:'start'});
 }
 document.getElementById('big').onclick=function(){
-  box.classList.add('big'); document.body.classList.add('locked');
+  var f=document.getElementById('pl');
+  function css(){box.classList.add('big');document.body.classList.add('locked');}
+  function vfs(){try{new Vimeo.Player(f).requestFullscreen().catch(css);}catch(e){css();}}
+  if(f&&f.requestFullscreen){f.requestFullscreen().catch(vfs);}
+  else if(f&&f.webkitRequestFullscreen){f.webkitRequestFullscreen();}
+  else vfs();
 };
 document.getElementById('close').onclick=function(){
   box.classList.remove('big'); document.body.classList.remove('locked');
