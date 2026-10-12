@@ -35,7 +35,7 @@ document.body.innerHTML=
 '<div class="wrap">'+
 '<p class="lv">เพลงที่ '+SONG.no+' · '+SONG.lv+'</p>'+
 '<h1>'+SONG.title+'</h1>'+
-'<div class="player" id="box"><iframe id="pl" src="" allow="fullscreen; picture-in-picture" allowfullscreen></iframe>'+
+'<div class="player" id="box"><iframe id="pl" src="" allow="fullscreen; picture-in-picture" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>'+
 '<div class="cue" id="cue"><svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><path fill="#EFEBE2" fill-opacity=".9" fill-rule="evenodd" d="M50 0A50 50 0 1 0 50 100A50 50 0 1 0 50 0Z M39 29L73 50L39 71Z"/></svg></div></div>'+
 '<div class="expand"><button id="big">ขยายเต็มจอ</button></div>'+
 '<p class="now" id="now"></p>'+
