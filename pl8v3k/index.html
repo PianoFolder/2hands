@@ -38,7 +38,11 @@ box.addEventListener('pointerdown',hide);
 var player;
 try{player=new Vimeo.Player(pl);player.on('play',hide);}catch(e){}
 document.getElementById('big').onclick=function(){
-  if(player&&player.requestFullscreen){player.requestFullscreen().catch(function(){});}
+  var f=document.getElementById('pl');
+  function vfs(){if(player&&player.requestFullscreen){player.requestFullscreen().catch(function(){});}}
+  if(f&&f.requestFullscreen){f.requestFullscreen().catch(vfs);}
+  else if(f&&f.webkitRequestFullscreen){f.webkitRequestFullscreen();}
+  else vfs();
 };
 </script>
 </body>
