@@ -61,7 +61,7 @@ function mount(id){
   f.setAttribute('referrerpolicy','strict-origin-when-cross-origin');
   f.src='https://player.vimeo.com/video/'+id+VP;
   f.addEventListener('load',function(){
-    setTimeout(function(){try{new Vimeo.Player(f).on('play',hide);}catch(e){}},300);
+    setTimeout(function(){try{var vp=new Vimeo.Player(f);vp.on('play',hide);vp.disableTextTrack().catch(function(){});vp.on('play',function(){vp.disableTextTrack().catch(function(){});});}catch(e){}},300);
   });
   box.insertBefore(f,cue);
 }
